@@ -7,6 +7,7 @@ export interface IUserLogin {
 
 export interface IUserRegister extends IUserLogin {
   login: string
+  confirmPassword?: string
 }
 
 // TODO: Как правильно сделать тип?

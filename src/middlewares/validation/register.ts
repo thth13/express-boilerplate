@@ -5,6 +5,7 @@ const requiredWithErrorMessage = {
   errorMessage: 'Field is required',
 }
 
+// TODO: возможно добавить валидацию confirmPassword
 export const registerUserValidation = checkSchema({
   login: {
     ...requiredWithErrorMessage,
