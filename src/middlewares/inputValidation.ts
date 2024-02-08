@@ -7,10 +7,12 @@ export const inputValidation = (
   res: Response,
   next: NextFunction,
 ) => {
-  const result = validationResult(req)
+  const errorFormatter = ({ msg }: any) => msg
+
+  const result = validationResult(req).formatWith(errorFormatter)
 
   if (!result.isEmpty()) {
-    res.send({ errors: result.array() })
+    res.status(400).json({ errors: result.mapped() })
   } else {
     next()
   }

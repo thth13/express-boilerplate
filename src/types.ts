@@ -21,11 +21,16 @@ export interface IUserAuth {
 
 // TODO: переделать на omit
 export interface IUpdateUserFields {
-  id: string
+  id?: string
   login?: string
   firstName?: string
   lastName?: string
   age?: number
+  avatar?: string
+}
+
+export type URIParamsUserIdModel = {
+  id: string
 }
 
 export type RequestWithBody<T> = Request<{}, {}, T>

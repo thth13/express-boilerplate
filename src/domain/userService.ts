@@ -1,6 +1,7 @@
 import { usersRepository } from '../repositories/usersRepository'
 import { IUser } from './models/userModel'
 import { IUserRegister, IUserLogin, IUpdateUserFields, IErrors } from '../types'
+import fs from 'fs'
 
 export const userService = {
   registerUser(data: IUserRegister): Promise<string | IErrors> {
@@ -12,7 +13,16 @@ export const userService = {
   getUser(userId: string): Promise<IUser> {
     return usersRepository.getUser(userId)
   },
-  updateUser(userData: IUpdateUserFields): Promise<IUser> {
-    return usersRepository.updateUser(userData)
+  updateUser(
+    userData: IUpdateUserFields,
+    userId: any,
+    file?: any,
+  ): Promise<IUser> {
+    if (file) {
+      fs.readFileSync(file.path)
+      userData.avatar = file.filename
+    }
+
+    return usersRepository.updateUser(userData, userId)
   },
 }

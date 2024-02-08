@@ -4,11 +4,22 @@
   "main": "index.js",
   "author": "thth13",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "devv": "nodemon",
+    "build": "rimraf ./build && tsc",
+    "start": "yarn build && node build/main",
+    "lint": "eslint ./src",
+    "format": "eslint ./src --fix"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/express-fileupload": "^1.4.4",
     "@types/jest": "^29.5.11",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/mongoose": "^5.11.97",
@@ -20,15 +31,22 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.0",
+    "multer": "^1.4.5-lts.1",
     "supertest": "^6.3.4",
     "ts-jest": "^29.1.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
     "@types/node": "^20.11.5",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "concurrently": "^8.2.2",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.10",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.4",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }

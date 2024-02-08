@@ -22,10 +22,3 @@ export const loginUserValidation = checkSchema({
   email: { ...requiredWithErrorMessage },
   password: { ...requiredWithErrorMessage },
 })
-
-export const updateUserValidation = checkSchema({
-  login: {
-    isLength: { options: { min: 3, max: 30 } },
-    errorMessage: 'Minimum login length 3 characterse',
-  },
-})

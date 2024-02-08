@@ -1,22 +1,27 @@
-import express, { Request, Response } from 'express'
+import express, { Response } from 'express'
+import multer from 'multer'
+import fs from 'fs'
+import { IUser } from '../domain/models/userModel'
+import { userService } from '../domain/userService'
+import { checkAuth } from '../middlewares/checkAuth'
 import { inputValidation } from '../middlewares/inputValidation'
+import { updateUserValidation } from '../middlewares/validation/editProfile'
 import {
   loginUserValidation,
   registerUserValidation,
-  updateUserValidation,
 } from '../middlewares/validation/register'
-import { userService } from '../domain/userService'
 import {
   IErrors,
+  IUpdateUserFields,
+  IUserAuth,
   IUserLogin,
   IUserRegister,
-  IUserAuth,
-  IUpdateUserFields,
   RequestWithBody,
+  RequestWithParamsAndBody,
+  URIParamsUserIdModel,
 } from '../types'
-import { checkAuth } from '../middlewares/checkAuth'
-import { IUser } from '../domain/models/userModel'
 
+export const upload = multer({ dest: 'avatars/' })
 const router = express.Router()
 
 // @route   POST api/register
@@ -28,12 +33,12 @@ router.post(
   inputValidation,
   async (
     req: RequestWithBody<IUserRegister>,
-    res: Response<string | IErrors>,
+    res: Response<Object | IErrors>,
   ) => {
     try {
-      const newUserToken = await userService.registerUser(req.body)
+      const token = await userService.registerUser(req.body)
 
-      res.status(200).json(newUserToken)
+      res.status(200).json({ token })
     } catch (err: any) {
       // TODO: как правильно обработать ошибку
       if (err.errors) res.status(400).json(err)
@@ -49,11 +54,11 @@ router.post(
   '/login',
   loginUserValidation,
   inputValidation,
-  async (req: RequestWithBody<IUserLogin>, res: Response<string | IErrors>) => {
+  async (req: RequestWithBody<IUserLogin>, res: Response<Object | IErrors>) => {
     try {
-      const userToken = await userService.loginUser(req.body)
+      const token = await userService.loginUser(req.body)
 
-      res.status(200).json(userToken)
+      res.status(200).json({ token })
     } catch (err: any) {
       // TODO: как правильно обработать ошибку
       if (err.errors) res.status(400).json(err)
@@ -78,17 +83,25 @@ router.get(
   },
 )
 
-// @route   POST api/user/update
+// @route   PUT api/user/update
 // @desc    Update user
 // @access  Private
 router.put(
-  '/update',
+  '/update/:id',
   checkAuth,
   updateUserValidation,
   inputValidation,
-  async (req: RequestWithBody<IUpdateUserFields>, res: Response<IUser>) => {
+  upload.single('avatar'),
+  async (
+    req: RequestWithParamsAndBody<URIParamsUserIdModel, IUpdateUserFields>,
+    res: Response<IUser>,
+  ) => {
     try {
-      const updatedUser = await userService.updateUser(req.body)
+      const updatedUser = await userService.updateUser(
+        req.body,
+        req.params.id,
+        req.file,
+      )
 
       res.status(200).json(updatedUser)
     } catch (err: any) {

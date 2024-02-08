@@ -8,10 +8,11 @@ export enum UserActionTypes {
 export interface UserState {
   user: IUser | null
   loading: boolean
-  error: string | null
+  // TODO: тип errors
+  errors: any | null
 }
 
-interface FetchUserAction {
+export interface FetchUserAction {
   type: UserActionTypes.GET_USER
   payload: IUser
 }

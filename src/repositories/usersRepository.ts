@@ -30,10 +30,10 @@ export const usersRepository = {
 
     const user = await User.findOne({ email })
     const invalidCredentialsError = {
-      errors: [
-        { msg: 'Invalid Credentials', path: 'email' },
-        { msg: 'Invalid Credentials', path: 'password' },
-      ],
+      errors: {
+        email: 'Invalid Credentials',
+        password: 'Invalid Credentials',
+      },
     }
 
     if (!user) {
@@ -59,9 +59,9 @@ export const usersRepository = {
     return user
   },
 
-  async updateUser(userData: IUpdateUserFields): Promise<IUser> {
+  async updateUser(userData: IUpdateUserFields, userId: any): Promise<IUser> {
     return await User.findOneAndUpdate(
-      { _id: userData.id },
+      { _id: userId },
       { $set: userData },
       { new: true, upsert: true, setDefaultOnInsert: true },
     )
