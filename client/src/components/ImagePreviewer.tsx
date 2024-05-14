@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
 const Avatar = styled.img`
   width: 169px;
   height: 169px;
@@ -11,7 +18,6 @@ const Avatar = styled.img`
 
 const UploadButton = styled.label`
   border-radius: 5px;
-  /* background: #4472cb; */
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
   padding: 10px 50px;
   outline: none;
@@ -21,7 +27,6 @@ const UploadButton = styled.label`
   margin-bottom: 20px;
   cursor: pointer;
   background-color: #5bd688;
-  width: 150px;
   padding: 7px;
   color: white;
   &:hover {
@@ -50,13 +55,11 @@ const ImagePreviewer = ({ avatar, changeAvatar }: any) => {
   }, [avatar])
 
   return (
-    <div>
+    <Wrapper>
       <div>
-        <div>
-          <Avatar src={profileImg} alt="" id="img" />
-        </div>
+        <Avatar src={profileImg} alt="" id="img" />
       </div>
-      <UploadButton htmlFor="input">Change avatar</UploadButton>
+      <UploadButton htmlFor="input">Upload avatar</UploadButton>
       <input
         style={{ display: 'none' }}
         type="file"
@@ -70,7 +73,7 @@ const ImagePreviewer = ({ avatar, changeAvatar }: any) => {
         Select photo
       </label> */}
       {/* {errors.avatar && <p className={styles.errorText}>{errors.avatar.message}</p>} */}
-    </div>
+    </Wrapper>
   )
 }
 

@@ -24,7 +24,6 @@ const Wrapper = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   background-color: #f9f0f0;
   padding: 50px 200px;
   border-radius: 20px;
@@ -41,7 +40,6 @@ const TextField = styled.input`
   box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.1);
   padding: 10px;
   width: 287px;
-  /* margin-bottom: 15px; */
   font-size: 16px;
   border-color: ${(props) => props.onError && 'red'};
 `
@@ -110,9 +108,6 @@ export const EditUser: React.FC = () => {
         ) : (
           <PreloaderAvatar />
         )}
-
-        {/* <Avatar src={require('./noAvatar.png')} alt="avatar" /> */}
-        {/* <UploadButton>Change avatar</UploadButton> */}
         <Label htmlFor="login">Login</Label>
         <TextField
           value={fields.login}
