@@ -11,7 +11,7 @@ connectDB()
 
 // Routes
 app.use('/api/users/', usersRouter)
-app.use('/avatars', express.static('avatars'))
+app.use('/uploads', express.static('uploads'))
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)

@@ -104,7 +104,7 @@ export const EditUser: React.FC = () => {
           <ImagePreviewer
             changeAvatar={changeAvatar}
             avatar={
-              user?.avatar && `http://localhost:8000/avatars/${user.avatar}`
+              user?.avatar && `http://localhost:8000/uploads/${user.avatar}`
             }
           />
         ) : (

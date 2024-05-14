@@ -124,7 +124,7 @@ export const UserPage: React.FC = () => {
           <Avatar
             src={
               user?.avatar
-                ? `http://localhost:8000/avatars/${user.avatar}`
+                ? `http://localhost:8000/uploads/${user.avatar}`
                 : require('../img/noAvatar.png')
             }
             alt="avatar"

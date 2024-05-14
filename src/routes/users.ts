@@ -21,7 +21,7 @@ import {
   URIParamsUserIdModel,
 } from '../types'
 
-export const upload = multer({ dest: 'avatars/' })
+export const upload = multer({ dest: 'uploads/' })
 const router = express.Router()
 
 // @route   POST api/register
@@ -97,6 +97,7 @@ router.put(
     res: Response<IUser>,
   ) => {
     try {
+      // find user id and get avatat field for deleting in updateUser
       const updatedUser = await userService.updateUser(
         req.body,
         req.params.id,

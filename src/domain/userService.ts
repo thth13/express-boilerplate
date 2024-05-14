@@ -1,7 +1,7 @@
 import { usersRepository } from '../repositories/usersRepository'
 import { IUser } from './models/userModel'
 import { IUserRegister, IUserLogin, IUpdateUserFields, IErrors } from '../types'
-import fs from 'fs'
+import fs, { unlink } from 'fs'
 
 export const userService = {
   registerUser(data: IUserRegister): Promise<string | IErrors> {
@@ -19,6 +19,11 @@ export const userService = {
     file?: any,
   ): Promise<IUser> {
     if (file) {
+      if (userData.avatar) {
+        console.log(`uploads/${userData.avatar}`)
+        unlink(`uploads/${userData.avatar}`, () => {})
+      }
+
       fs.readFileSync(file.path)
       userData.avatar = file.filename
     }
