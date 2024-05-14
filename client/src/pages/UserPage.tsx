@@ -40,22 +40,13 @@ const UserHeader = styled.div`
 `
 
 const Avatar = styled.img`
-  /* margin: 0 auto; */
-  /* text-align: center; */
   width: 169px;
   height: 169px;
   border-radius: 50%;
   top: 60px;
   left: 50%;
   margin-left: -84.5px;
-  /* transform: translateY(50%); */
   position: absolute;
-  /* margin: 0 auto; */
-  /* text-align: center; */
-  /* margin: 0 auto; */
-  /* position: absolute; */
-  /* right: 50%; */
-  /* right: 50%; */
 `
 
 const UserData = styled.div`
@@ -92,6 +83,27 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
 `
+const UserField = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const Skeleton = styled.div<{ width?: number; height: number }>`
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+  background-color: #ececec;
+`
+
+const AvatarSkeleton = styled.div`
+  width: 169px;
+  height: 169px;
+  border-radius: 50%;
+  top: 60px;
+  left: 50%;
+  margin-left: -84.5px;
+  position: absolute;
+  background-color: #ececec;
+`
 
 export const UserPage: React.FC = () => {
   const { user } = useTypedSelector((state) => state.user)
@@ -107,28 +119,51 @@ export const UserPage: React.FC = () => {
       <UserCard>
         <UserHeader>
           <UserData>
-            <span>
-              <b>Login:</b> {user?.login}
-            </span>
-            <span>
-              <b>Email:</b> {user?.email}
-            </span>
-            <span>
-              <b>Name:</b> {user?.firstName}
-            </span>
-            <span>
-              <b>Last name:</b>
-              {user?.lastName}
-            </span>
+            <UserField>
+              <b>Login:</b>
+              {user ? (
+                <span>${user?.login}</span>
+              ) : (
+                <Skeleton width={70} height={15} />
+              )}
+            </UserField>
+            <UserField>
+              <b>Email:</b>
+              {user ? (
+                <span>{user?.email}</span>
+              ) : (
+                <Skeleton width={80} height={15} />
+              )}
+            </UserField>
+            <UserField>
+              <b>Name:</b>
+              {user ? (
+                <span>{user?.firstName}</span>
+              ) : (
+                <Skeleton width={95} height={15} />
+              )}
+            </UserField>
+            <UserField>
+              <b>Last Name:</b>
+              {user ? (
+                <span>{user?.lastName}</span>
+              ) : (
+                <Skeleton width={85} height={15} />
+              )}
+            </UserField>
           </UserData>
-          <Avatar
-            src={
-              user?.avatar
-                ? `http://localhost:8000/uploads/${user.avatar}`
-                : require('../img/noAvatar.png')
-            }
-            alt="avatar"
-          />
+          {user ? (
+            <Avatar
+              src={
+                user?.avatar
+                  ? `http://localhost:8000/uploads/${user.avatar}`
+                  : require('../img/noAvatar.png')
+              }
+              alt="avatar"
+            />
+          ) : (
+            <AvatarSkeleton />
+          )}
         </UserHeader>
         <ButtonWrapper>
           <Link to="edit">
