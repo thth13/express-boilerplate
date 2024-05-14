@@ -21,7 +21,6 @@ const UserCard = styled.div`
   justify-content: space-between;
   background-color: #f9f0f0;
   width: 800px;
-  /* height: 325px; */
   border-radius: 20px;
 `
 
@@ -31,11 +30,8 @@ const UserHeader = styled.div`
   display: flex;
   align-items: center;
   padding: 35px 0%;
-  /* justify-content: center; */
-  /* text-align: center; */
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  /* position: relative; */
   filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
 `
 
@@ -55,21 +51,6 @@ const UserData = styled.div`
   margin-left: 40px;
 `
 
-const AvatarWrapper = styled.div`
-  /* text-align: center; */
-  /* justify: center; */
-  /* align-self: flex-end; */
-  /* text-align: center; */
-  top: 20px;
-  right: 50%;
-  margin-right: -50px;
-  /* transform: translateY(50%); */
-  position: absolute;
-`
-
-const EditButton = styled(Button)`
-  /* margin: 0; */
-`
 const LogoutButton = styled(Button)`
   margin: 0px 20px 20px 20px;
   background: #cb4444;
@@ -167,7 +148,7 @@ export const UserPage: React.FC = () => {
         </UserHeader>
         <ButtonWrapper>
           <Link to="edit">
-            <EditButton>Edit profile</EditButton>
+            <Button>Edit profile</Button>
           </Link>
           <LogoutButton onClick={logout}>Logout</LogoutButton>
         </ButtonWrapper>

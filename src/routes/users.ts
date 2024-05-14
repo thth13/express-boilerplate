@@ -1,6 +1,5 @@
 import express, { Response } from 'express'
 import multer from 'multer'
-import fs from 'fs'
 import { IUser } from '../domain/models/userModel'
 import { userService } from '../domain/userService'
 import { checkAuth } from '../middlewares/checkAuth'
@@ -42,7 +41,6 @@ router.post(
     } catch (err: any) {
       // TODO: как правильно обработать ошибку
       if (err.errors) res.status(400).json(err)
-      // console.error(err.message)
     }
   },
 )
