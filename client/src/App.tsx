@@ -31,7 +31,7 @@ const App: React.FC = () => {
     window.addEventListener('storage', () => {
       if (!token) dispatch(logOut())
     })
-  }, [])
+  }, [dispatch, token, user])
 
   return (
     <Suspense fallback={'Loading...'}>

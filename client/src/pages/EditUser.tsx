@@ -48,16 +48,6 @@ const SaveButton = styled(Button)`
   margin-top: 15px;
 `
 
-const UploadButton = styled(Button)`
-  background-color: #5bd688;
-  width: 150px;
-  padding: 7px 0px;
-  margin: 0 auto;
-  &:hover {
-    background: #23c75f;
-  }
-`
-
 const PreloaderAvatar = styled.div`
   width: 169px;
   height: 169px;

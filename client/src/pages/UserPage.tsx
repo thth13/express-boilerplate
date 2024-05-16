@@ -103,7 +103,7 @@ export const UserPage: React.FC = () => {
             <UserField>
               <b>Login:</b>
               {user ? (
-                <span>${user?.login}</span>
+                <span>{user?.login}</span>
               ) : (
                 <Skeleton width={70} height={15} />
               )}
