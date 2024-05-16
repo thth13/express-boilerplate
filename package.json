@@ -10,8 +10,9 @@
     }
   },
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "devv": "nodemon",
+    "dev": "concurrently \"yarn client\" \"yarn server\"",
+    "server": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "client": "cd ./client && yarn start",
     "build": "rimraf ./build && tsc",
     "start": "yarn build && node build/main",
     "lint": "eslint ./src",
