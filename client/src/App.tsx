@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: localStorage.token || user ? <UserPage /> : <AuthPage />,
+      element: user ? <UserPage /> : <AuthPage />,
     },
     { path: '/changepassword', element: <ChangePassword /> },
     { path: '/edit', element: <EditUser /> },
