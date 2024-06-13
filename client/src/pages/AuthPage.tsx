@@ -106,9 +106,9 @@ export const AuthPage: React.FC = () => {
               value={fields.login}
               name="login"
               placeholder="Username"
-              onError={errors?.errors?.login}
+              onError={errors?.login}
             />
-            <ErrorMsg>{errors?.errors?.login}</ErrorMsg>
+            <ErrorMsg>{errors?.login}</ErrorMsg>
           </>
         )}
         <TextField
@@ -116,18 +116,18 @@ export const AuthPage: React.FC = () => {
           name="email"
           value={fields.email}
           placeholder="Email"
-          onError={errors?.errors?.email}
+          onError={errors?.email}
         />
-        <ErrorMsg>{errors?.errors?.email}</ErrorMsg>
+        <ErrorMsg>{errors?.email}</ErrorMsg>
         <TextField
           onChange={onChange}
           name="password"
           value={fields.password}
           placeholder="Password"
           type="password"
-          onError={errors?.errors?.password}
+          onError={errors?.password}
         />
-        <ErrorMsg>{errors?.errors?.password}</ErrorMsg>
+        <ErrorMsg>{errors?.password}</ErrorMsg>
         {!isAuth && (
           <>
             <TextField

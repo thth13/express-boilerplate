@@ -1,6 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { UserState } from '../../types/user'
-import { editUser, getUser, loginUser, registerUser } from './userAsyncActions'
+import {
+  editUser,
+  getUser,
+  loginUser,
+  registerUser,
+  changePassword,
+} from './userAsyncActions'
 
 const initialState: UserState = {
   user: null,
@@ -67,6 +73,17 @@ const userSlice = createSlice({
       })
       .addCase(editUser.rejected, (state, action: PayloadAction<any>) => {
         state.errors = action.payload
+        state.loading = false
+      })
+      .addCase(changePassword.pending, (state) => {
+        state.errors = {}
+        state.loading = true
+      })
+      .addCase(changePassword.rejected, (state, action: PayloadAction<any>) => {
+        state.errors = action.payload
+        state.loading = false
+      })
+      .addCase(changePassword.fulfilled, (state) => {
         state.loading = false
       })
   },

@@ -8,10 +8,12 @@ import { logOut } from './store/user/userSlice'
 import { AppDispatch } from './store'
 import { useTypedSelector } from './hooks/useTypeSelector'
 import { EditUser } from './pages/EditUser'
+import { ChangePassword } from './pages/ChangePassword'
 
 const App: React.FC = () => {
   const { user } = useTypedSelector((state) => state.user)
   const dispatch = useDispatch<AppDispatch>()
+  // todo: check if expired
   const token = localStorage.token
 
   const router = createBrowserRouter([
@@ -19,6 +21,7 @@ const App: React.FC = () => {
       path: '/',
       element: localStorage.token || user ? <UserPage /> : <AuthPage />,
     },
+    { path: '/changepassword', element: <ChangePassword /> },
     { path: '/edit', element: <EditUser /> },
   ])
 

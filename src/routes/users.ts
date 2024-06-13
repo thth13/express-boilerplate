@@ -4,12 +4,16 @@ import { IUser } from '../domain/models/userModel'
 import { userService } from '../domain/userService'
 import { checkAuth } from '../middlewares/checkAuth'
 import { inputValidation } from '../middlewares/inputValidation'
-import { updateUserValidation } from '../middlewares/validation/editProfile'
+import {
+  updateUserValidation,
+  changePasswordValidation,
+} from '../middlewares/validation/editProfile'
 import {
   loginUserValidation,
   registerUserValidation,
 } from '../middlewares/validation/register'
 import {
+  IChangePassword,
   IErrors,
   IUpdateUserFields,
   IUserAuth,
@@ -108,6 +112,29 @@ router.put(
       res.status(400).json(err)
     }
   },
+
+  // @route   PUT api/user/changepassword
+  // @desc    Change Password
+  // @access  Private
+  router.put(
+    '/changepassword/:id',
+    checkAuth,
+    changePasswordValidation,
+    inputValidation,
+    async (
+      req: RequestWithParamsAndBody<URIParamsUserIdModel, IChangePassword>,
+      res: Response<Object | IErrors>,
+    ) => {
+      try {
+        const result = await userService.changePassword(req.body, req.params.id)
+
+        res.status(200).json(result)
+      } catch (err: any) {
+        console.log(err)
+        res.status(400).json(err)
+      }
+    },
+  ),
 )
 
 export default router

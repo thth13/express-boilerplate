@@ -140,7 +140,7 @@ export const UserPage: React.FC = () => {
                   ? `http://localhost:8000/uploads/${user.avatar}`
                   : require('../img/noAvatar.png')
               }
-              alt="avatar"
+              // alt="avatar"
             />
           ) : (
             <AvatarSkeleton />

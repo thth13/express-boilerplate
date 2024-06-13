@@ -5,6 +5,12 @@ export interface IUserLogin {
   password: string
 }
 
+export interface IChangePassword {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
 export interface IUserRegister extends IUserLogin {
   login: string
   confirmPassword?: string

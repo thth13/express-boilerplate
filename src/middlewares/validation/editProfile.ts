@@ -5,6 +5,13 @@ const validateLength = {
   errorMessage: 'Maximum length 30 characters',
 }
 
+export const changePasswordValidation = checkSchema({
+  newPassword: {
+    isLength: { options: { min: 4, max: 100 } },
+    errorMessage: 'Minimum password length 4 characters',
+  },
+})
+
 export const updateUserValidation = checkSchema({
   login: validateLength,
   firstName: validateLength,

@@ -13,8 +13,8 @@ export const registerUserValidation = checkSchema({
   },
   email: { isEmail: true, errorMessage: 'Enter a corrent email' },
   password: {
-    isLength: { options: { min: 6, max: 100 } },
-    errorMessage: 'Minimum password length 6 characterse',
+    isLength: { options: { min: 4, max: 100 } },
+    errorMessage: 'Minimum password length 4 characterse',
   },
 })
 

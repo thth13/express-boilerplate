@@ -63,3 +63,18 @@ export const editUser = createAsyncThunk(
     }
   },
 )
+
+export const changePassword = createAsyncThunk(
+  'user/changePassword',
+  async (data: any, thunkAPI) => {
+    const { navigate } = data
+
+    try {
+      await api.put(`/users/changepassword/${data.userId}`, data.fields)
+      navigate('/')
+    } catch (error: any) {
+      console.log(error)
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
+  },
+)

@@ -1,6 +1,12 @@
 import { usersRepository } from '../repositories/usersRepository'
 import { IUser } from './models/userModel'
-import { IUserRegister, IUserLogin, IUpdateUserFields, IErrors } from '../types'
+import {
+  IUserRegister,
+  IUserLogin,
+  IUpdateUserFields,
+  IErrors,
+  IChangePassword,
+} from '../types'
 import fs, { unlink } from 'fs'
 
 export const userService = {
@@ -12,6 +18,12 @@ export const userService = {
   },
   getUser(userId: string): Promise<IUser> {
     return usersRepository.getUser(userId)
+  },
+  changePassword(
+    data: IChangePassword,
+    userId: any,
+  ): Promise<string | IErrors> {
+    return usersRepository.changePassword(data, userId)
   },
   updateUser(
     userData: IUpdateUserFields,

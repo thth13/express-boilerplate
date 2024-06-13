@@ -12,7 +12,7 @@ export const inputValidation = (
   const result = validationResult(req).formatWith(errorFormatter)
 
   if (!result.isEmpty()) {
-    res.status(400).json({ errors: result.mapped() })
+    res.status(400).json(result.mapped())
   } else {
     next()
   }

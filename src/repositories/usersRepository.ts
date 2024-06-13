@@ -1,5 +1,11 @@
 import bcrypt from 'bcryptjs'
-import { IUserRegister, IUserLogin, IUpdateUserFields, IErrors } from '../types'
+import {
+  IUserRegister,
+  IUserLogin,
+  IUpdateUserFields,
+  IErrors,
+  IChangePassword,
+} from '../types'
 import { IUser, User } from '../domain/models/userModel'
 import { signToken } from '../domain/utils'
 
@@ -42,7 +48,7 @@ export const usersRepository = {
 
     const isMatchPassword = await bcrypt.compare(password, user.password)
 
-    if (!isMatchPassword) {
+    if (isMatchPassword !== true) {
       throw invalidCredentialsError
     }
 
@@ -57,6 +63,35 @@ export const usersRepository = {
     }
 
     return user
+  },
+
+  async changePassword(
+    data: IChangePassword,
+    userId: any,
+  ): Promise<string | IErrors> {
+    const { oldPassword, newPassword, confirmPassword } = data
+
+    if (newPassword !== confirmPassword) {
+      throw { confirmPassword: 'Passwords do not match' }
+    }
+
+    const user = await User.findById(userId)
+
+    if (!user) {
+      // TODO: сделать обработку этих ошибок
+      throw { msg: 'User is not found' }
+    }
+
+    const isMatchPassword = await bcrypt.compare(oldPassword, user.password)
+
+    if (isMatchPassword !== true) {
+      throw { oldPassword: 'Wrong old password' }
+    }
+
+    user.password = newPassword
+    await user.save()
+
+    return 'Password changed successfully'
   },
 
   async updateUser(userData: IUpdateUserFields, userId: any): Promise<IUser> {
