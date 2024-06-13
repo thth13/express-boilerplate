@@ -36,7 +36,7 @@ const UploadButton = styled.label`
 
 const ImagePreviewer = ({ avatar, changeAvatar }: any) => {
   const [profileImg, setProfileImg] = useState(
-    avatar ? avatar : require('../img/avatar.png'),
+    avatar ? avatar : require('../img/noAvatar.png'),
   )
 
   const imageHandler = (e: any) => {

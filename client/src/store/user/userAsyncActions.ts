@@ -44,18 +44,21 @@ export const editUser = createAsyncThunk(
   'user/editUser',
   async (data: any, thunkAPI) => {
     try {
+      const { fields, navigate } = data
       const formData = new FormData()
-      formData.append('login', data.fields?.login)
-      formData.append('firstName', data.fields?.firstName)
-      formData.append('lastName', data.fields?.lastName)
-      formData.append('avatar', data.fields?.avatar)
+
+      formData.append('login', fields?.login) // TODO: валидация на пустой логин
+      formData.append('firstName', fields?.firstName ? fields.firstName : '')
+      formData.append('lastName', fields?.lastName ? fields.lastName : '')
+      formData.append('avatar', fields?.avatar ? fields.avatar : '')
 
       const res = await api.put(`/users/update/${data.userId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
-      data.navigate(-1)
+
+      navigate(-1)
       return await res.data
     } catch (error: any) {
       console.log(error)
