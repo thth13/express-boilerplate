@@ -13,7 +13,10 @@ export const changePasswordValidation = checkSchema({
 })
 
 export const updateUserValidation = checkSchema({
-  login: validateLength,
+  login: {
+    isLength: { options: { min: 4, max: 30 } },
+    errorMessage: 'Minimum length 4, maxumum 30 characters',
+  },
   firstName: validateLength,
   lastName: validateLength,
 })
