@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { useTypedSelector } from '../hooks/useTypeSelector'
@@ -15,6 +15,7 @@ import {
   StyledLink,
   List,
   ListItem,
+  CancelButton,
 } from './style'
 
 export const EditUser: React.FC = () => {
@@ -96,6 +97,9 @@ export const EditUser: React.FC = () => {
         <SaveButton disabled={loading} type="submit">
           Save
         </SaveButton>
+        <Link to="/">
+          <CancelButton disabled={loading}>Cancel</CancelButton>
+        </Link>
       </Form>
     </Wrapper>
   )

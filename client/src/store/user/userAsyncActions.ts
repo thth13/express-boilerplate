@@ -47,7 +47,7 @@ export const editUser = createAsyncThunk(
       const { fields, navigate } = data
       const formData = new FormData()
 
-      formData.append('login', fields?.login) // TODO: валидация на пустой логин
+      formData.append('login', fields?.login)
       formData.append('firstName', fields?.firstName ? fields.firstName : '')
       formData.append('lastName', fields?.lastName ? fields.lastName : '')
       formData.append('avatar', fields?.avatar ? fields.avatar : '')
@@ -70,11 +70,8 @@ export const editUser = createAsyncThunk(
 export const changePassword = createAsyncThunk(
   'user/changePassword',
   async (data: any, thunkAPI) => {
-    const { navigate } = data
-
     try {
       await api.put(`/users/changepassword/${data.userId}`, data.fields)
-      navigate('/')
     } catch (error: any) {
       console.log(error)
       return thunkAPI.rejectWithValue(error.response.data)

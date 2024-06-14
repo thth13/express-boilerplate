@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
@@ -15,6 +15,12 @@ import {
   List,
 } from './style'
 
+export interface IChangePassword {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
 const initialFields = {
   oldPassword: '',
   newPassword: '',
@@ -23,7 +29,8 @@ const initialFields = {
 
 export const ChangePassword: React.FC = () => {
   const { user, errors, loading } = useTypedSelector((state) => state.user)
-  const [fields, setFields] = useState<any>(initialFields)
+  const [fields, setFields] = useState<IChangePassword>(initialFields)
+  const [isSuccess, setIsSuccess] = useState(false)
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
   const navigate = useNavigate()
@@ -34,8 +41,18 @@ export const ChangePassword: React.FC = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    dispatch(changePassword({ fields, navigate, userId: user?._id }))
+    dispatch(changePassword({ fields, userId: user?._id }))
+      .unwrap()
+      .then(() => {
+        setIsSuccess(true)
+      })
   }
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/')
+    }
+  }, [isSuccess])
 
   return (
     <Wrapper>
@@ -53,7 +70,7 @@ export const ChangePassword: React.FC = () => {
         <TextField
           onChange={onChange}
           name="oldPassword"
-          value={fields.password}
+          value={fields.oldPassword}
           placeholder="Old password"
           type="password"
           onError={errors?.oldPassword}
@@ -62,7 +79,7 @@ export const ChangePassword: React.FC = () => {
         <TextField
           onChange={onChange}
           name="newPassword"
-          value={fields.password}
+          value={fields.newPassword}
           placeholder="New Password"
           type="password"
           onError={errors?.newPassword}
@@ -71,7 +88,7 @@ export const ChangePassword: React.FC = () => {
         <TextField
           onChange={onChange}
           name="confirmPassword"
-          value={fields.password}
+          value={fields.confirmPassword}
           placeholder="Confirm New Password"
           type="password"
           onError={errors?.confirmPassword}
@@ -79,7 +96,7 @@ export const ChangePassword: React.FC = () => {
         <SaveButton disabled={loading} type="submit">
           Save
         </SaveButton>
-        <Link to="/edit">
+        <Link to="/">
           <CancelButton disabled={loading}>Cancel</CancelButton>
         </Link>
       </Form>
