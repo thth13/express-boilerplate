@@ -13,8 +13,8 @@
     "dev": "concurrently \"yarn client\" \"yarn server\"",
     "server": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
     "client": "cd ./client && yarn start",
-    "build": "rimraf ./build && tsc",
-    "start": "yarn build && node build/main",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "lint": "eslint ./src",
     "format": "eslint ./src --fix"
   },
