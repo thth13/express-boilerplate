@@ -12,11 +12,9 @@ export const changePasswordValidation = checkSchema({
   },
 })
 
+// TODO: валидация не отрабатывает потому что приходит form-data
 export const updateUserValidation = checkSchema({
-  login: {
-    isLength: { options: { min: 4, max: 30 } },
-    errorMessage: 'Minimum length 4, maxumum 30 characters',
-  },
+  login: validateLength,
   firstName: validateLength,
   lastName: validateLength,
 })
