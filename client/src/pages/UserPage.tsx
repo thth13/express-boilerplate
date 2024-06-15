@@ -86,6 +86,11 @@ const AvatarSkeleton = styled.div`
   background-color: #ececec;
 `
 
+const avatarLink =
+  process.env.NODE_ENV === 'production'
+    ? 'https://express-boilerplate-production-d719.up.railway.app/uploads'
+    : 'http://localhost:8000/uploads'
+
 export const UserPage: React.FC = () => {
   const { user } = useTypedSelector((state) => state.user)
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
@@ -137,7 +142,7 @@ export const UserPage: React.FC = () => {
             <Avatar
               src={
                 user?.avatar
-                  ? `http://localhost:8000/uploads/${user.avatar}`
+                  ? `${avatarLink}/${user.avatar}`
                   : require('../img/noAvatar.png')
               }
               // alt="avatar"
